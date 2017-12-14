@@ -21,8 +21,14 @@ class ProductButtons extends Component {
     // }
 
     render() {
-        const products = this.props.products.map(product => {
-            return <ProductButton key={product.id} name={product.product_name} quantity={product.quantity} click={() => this.props.onAddToCart(product.product_name)} />
+        const products = this.props.products.map((product, index) => {
+            return <ProductButton key={product.id} name={product.product_name} quantity={product.quantity} click={() => 
+                this.props.onAddToCart({
+                    id: product.id,
+                    index: index,
+                    product_name: product.product_name,
+                    price: product.price
+                })} />
         });
 
         return (

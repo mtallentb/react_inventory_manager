@@ -14,12 +14,8 @@ import {
 class CreateProduct extends Component {
 
     state = {
-        product_name: " ",
-        description: " ",
-        price: " ",
-        quantity: " ",
-        category_id: " "
-    };
+        show: true
+    }
 
     addToDB = (product_name, description, price, quantity) => {
         console.log(product_name, description, price, quantity);
@@ -39,10 +35,23 @@ class CreateProduct extends Component {
             data: newProduct,
             headers: { 'Authorization': this.props.token }
         })
+        .then((response) => {
+            console.log(response);
+            axios({
+                method: 'get',
+                url: 'http://localhost:5000/products/',
+                headers: { 'Authorization': this.props.token }
+            })
             .then((response) => {
-                console.log(response);
+                console.log(response.data);
+                this.props.updateProducts(response.data);
             });
-    }
+        });
+    };
+
+    hideCreateProduct = () => {
+        this.setState({ show: false });
+    };
 
     render() {
         function FieldGroup({ id, label, help, ...props }) {
@@ -57,6 +66,7 @@ class CreateProduct extends Component {
         return <div className="container" style={{ textAlign: "left" }}>
             <Col md={2} />
             <Col md={8}>
+        {this.state.show ?
                 <form>
                     <FormGroup controlId="formControlsSelect">
                         <ControlLabel>Product Category</ControlLabel>
@@ -68,7 +78,6 @@ class CreateProduct extends Component {
                             <option value="Stickers">Stickers</option>
                         </FormControl>
                     </FormGroup>
-                    {/* <input type="text" onChange={this.getProductName} /> */}
                     <FieldGroup id="formControlsText" type="text" label="Product Name" inputRef={(ref) => { this.product_name = ref }} />
                     <FieldGroup id="formControlsPrice" type="text" label="Price" inputRef={(ref) => { this.price = ref }} />
                     <FieldGroup id="formControlsPrice" type="text" label="Quantity" inputRef={(ref) => { this.quantity = ref }} />
@@ -80,25 +89,18 @@ class CreateProduct extends Component {
                     </FormGroup>
 
                     <Button type="button" bsStyle="success" onClick={() => {
-                        let productObj = {
-                            product_id: this.props.products.length + 1,
-                            category_id: 31,
-                            product_name: this.product_name.value,
-                            description: this.description.value,
-                            price: this.price.value,
-                            quantity: this.quantity.value,
-                        }
                         this.addToDB(this.product_name.value, this.description.value, this.price.value, this.quantity.value);
-                        // this.props.updateProducts(productObj);
+                        this.hideCreateProduct();
                     }}>
                         Create Product
-            </Button>
+                    </Button>
                 </form>
+                : null}
                 <br />
                 <br />
             </Col>
             <Col md={2} />
-        </div>;
+        </div>
     };
 };
 
@@ -111,7 +113,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateProducts: (product) => dispatch(actionTypes.updateProducts(product))
+        updateProducts: (products) => dispatch(actionTypes.loadProducts(products))
     };
 };
 

@@ -1,32 +1,80 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Table, Col, Button, ButtonToolbar } from "react-bootstrap/lib/";
+import { 
+    Table, 
+    Col, 
+    Button, 
+    ButtonToolbar, 
+    Modal, 
+    FormGroup, 
+    ControlLabel, 
+    HelpBlock, 
+    FormControl 
+} from "react-bootstrap/lib/";
 import axios from 'axios';
+import * as actionTypes from '../../store/actions/actions';
 
 
 class Inventory extends Component {
     state = {
-        products: this.props.products
+        products: this.props.products,
+        showModal: false,
+        productToUpdate: null,
+        preEditProductName: null,
+        preEditDescription: null,
+        preEditPrice: null,
+        preEditQuantity: null
     }
 
     deleteProduct = (productID, index) => {
-        console.log(typeof (productID));
-        let id = String(productID);
-        console.log(typeof (id));
+        const newProducts = [...this.state.products];
+        newProducts.splice(index, 1);
+        this.setState({ products: newProducts });
+    }
+
+    updateProduct = (product_name, description, price, quantity) => {
+        console.log("Current Product ID: " + this.state.productToUpdate);
+        console.log(product_name, description, price, quantity);
+        let updatedProduct = {
+            category_id: 15,
+            product_name: product_name,
+            price: price,
+            description: description,
+            quantity: quantity,
+            photo: "photo"
+        }
+
         axios({
-            method: 'delete',
-            url: 'http://localhost:5000/products/' + productID,
+            method: 'patch',
+            url: 'http://localhost:5000/products/' + this.state.productToUpdate,
+            data: updatedProduct,
             headers: { 'Authorization': this.props.token }
         })
             .then((response) => {
                 console.log(response);
-                const newProducts = [...this.props.products];
-                newProducts.splice(index, 1);
-                this.setState({ products: newProducts });
+                axios({
+                    method: 'get',
+                    url: 'http://localhost:5000/products/',
+                    headers: { 'Authorization': this.props.token }
+                })
+                    .then((response) => {
+                        console.log(response.data);
+                        // this.props.updateProducts(response.data);
+                    });
             });
-    }
+    };
 
     render() {
+
+        function FieldGroup({ id, label, help, ...props }) {
+            return (
+                <FormGroup controlId={id}>
+                    <ControlLabel>{label}</ControlLabel>
+                    <FormControl {...props} onChange={props.change} />
+                    {help && <HelpBlock>{help}</HelpBlock>}
+                </FormGroup>
+            );
+        }
 
         const products = this.state.products.map((product, index) => {
             return <tr key={product.id}>
@@ -36,8 +84,19 @@ class Inventory extends Component {
                 <td>${product.price}</td>
                 <td>{product.quantity}</td>
                 <td>{product.category_id}</td>
-                <td><Button bsSize="small" bsStyle="info" onClick={() => console.log('Edit Clicked!')}>Edit</Button></td>
-                <td><Button bsSize="small" bsStyle="danger" onClick={() => this.deleteProduct(product.id, index)}>Delete</Button></td>
+                <td><Button bsSize="small" bsStyle="info" onClick={() => {
+                    this.setState({ 
+                        showModal: true, 
+                        productToUpdate: product.id,
+                        preEditProductName: product.product_name,
+                        preEditDescription: product.description,
+                        preEditPrice: product.price,
+                        preEditQuantity: product.quantity
+                    })}} key={product.id}>Edit</Button></td>
+                <td><Button bsSize="small" bsStyle="danger" onClick={() => {
+                    this.deleteProduct(product.id, index);
+                    this.props.onDeleteProduct(product.id, index);
+                }}>Delete</Button></td>
             </tr>;
         });
 
@@ -45,11 +104,11 @@ class Inventory extends Component {
             <Col md={1} />
             <Col md={10}>
                 <ButtonToolbar style={{ justifyContent: 'center', display: 'flex' }}>
-                    <Button bsStyle="info" style={{ margin: 10 }} onClick={() => console.log('All Products Clicked!')}>All Products</Button>
-                    <Button bsStyle="info" style={{ margin: 10 }} onClick={() => console.log('Men\'s Clothes Clicked!')}>Men's</Button>
-                    <Button bsStyle="info" style={{ margin: 10 }} onClick={() => console.log('Women\'s Clothes Clicked!')}>Women's</Button>
-                    <Button bsStyle="info" style={{ margin: 10 }} onClick={() => console.log('Gameday Clicked!')}>Gameday</Button>
-                    <Button bsStyle="info" style={{ margin: 10 }} onClick={() => console.log('Gifts Clicked!')}>Gifts</Button>
+                    <Button style={{ margin: 10 }} onClick={() => console.log('All Products Clicked!')}>All Products</Button>
+                    <Button style={{ margin: 10 }} onClick={() => console.log('Men\'s Clothes Clicked!')}>Men's</Button>
+                    <Button style={{ margin: 10 }} onClick={() => console.log('Women\'s Clothes Clicked!')}>Women's</Button>
+                    <Button style={{ margin: 10 }} onClick={() => console.log('Gameday Clicked!')}>Gameday</Button>
+                    <Button style={{ margin: 10 }} onClick={() => console.log('Gifts Clicked!')}>Gifts</Button>
                 </ButtonToolbar>
                 <Table striped bordered condensed hover>
                     <thead>
@@ -68,6 +127,42 @@ class Inventory extends Component {
                         {products}
                     </tbody>
                 </Table>
+                {this.state.showModal ?
+                    <div className="static-modal">
+                        <Modal.Dialog>
+                            <Modal.Header>
+                                <Modal.Title>Update Existing Product</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body style={{ textAlign: 'left' }}>
+                                <form>
+                                    <FormGroup controlId="formControlsSelect">
+                                        <ControlLabel>Product Category</ControlLabel>
+                                        <FormControl componentClass="select">
+                                            <option value="Winter Gear">Select a Category</option>
+                                            <option value="Winter Gear">Winter Gear</option>
+                                            <option value="Hats">Hats</option>
+                                            <option value="Bags">Bags</option>
+                                            <option value="Stickers">Stickers</option>
+                                        </FormControl>
+                                    </FormGroup>
+                                    <FieldGroup id="formControlsText" type="text" label="Product Name" placeholder={this.state.preEditProductName} inputRef={(ref) => { this.product_name = ref }} />
+                                    <FieldGroup id="formControlsPrice" type="text" label="Price" placeholder={this.state.preEditPrice} inputRef={(ref) => { this.price = ref }} />
+                                    <FieldGroup id="formControlsPrice" type="text" label="Quantity" placeholder={this.state.preEditQuantity} inputRef={(ref) => { this.quantity = ref }} />
+                                    <FieldGroup id="formControlsFile" type="file" label="Product Image" />
+
+                                    <FormGroup controlId="formControlsTextarea">
+                                        <ControlLabel>Product Description</ControlLabel>
+                                        <FormControl componentClass="textarea" placeholder={this.state.preEditDescription} inputRef={(ref) => { this.description = ref }} />
+                                    </FormGroup>
+                                </form>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button onClick={() => this.setState({ showModal: false })}>Close</Button>
+                                <Button type="button" bsStyle="success" onClick={() => this.updateProduct(this.product_name.value, this.description.value, this.price.value, this.quantity.value)}>Update Product</Button>
+                            </Modal.Footer>
+                        </Modal.Dialog>
+                    </div>
+                    : null}
             </Col>
             <Col md={1} />
         </div>;
@@ -81,4 +176,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Inventory);
+const mapDispatchToProps = dispatch => {
+    return {
+        onDeleteProduct: (productID, index) => dispatch(actionTypes.deleteProduct(productID, index))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Inventory);
