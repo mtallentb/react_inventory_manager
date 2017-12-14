@@ -54,33 +54,33 @@ class Container extends Component {
         });
     }
 
-
-
     render() {
         return ( 
             <div>
                 {this.props.showLogin ? <LoginContainer /> : null}
                 {this.props.showCreateAccount ? <CreateAccountContainer /> : null}
                 {this.props.isAuthed ?
-                <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                    <Button bsStyle="primary" bsSize="large" onClick={this.showSellProducts}>
-                        Sell Products
-                    </Button>
-                    <Button bsStyle="danger" bsSize="large" onClick={this.showAddToStock}>
-                        Add to Stock
-                    </Button>
-                    <Button bsStyle="info" bsSize="large" onClick={this.showInventory}>
-                        View Inventory
-                    </Button>
-                    <Button bsStyle="success" bsSize="large" onClick={this.showCreateProduct}>
-                        Create New Product
-                    </Button>
-                </ButtonToolbar>
-                : null}
-                {this.state.showSellProducts ? <SellProductButtons /> : null}
-                {this.state.showAddToStock ? <AddToStockButtons /> : null}
-                {this.state.showInventory ? <Inventory /> : null}
-                {this.state.showCreateProduct ? <CreateProduct /> : null}
+                <div>
+                    <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
+                        <Button bsStyle="primary" bsSize="large" onClick={this.showSellProducts}>
+                            Sell Products
+                        </Button>
+                        <Button bsStyle="danger" bsSize="large" onClick={this.showAddToStock}>
+                            Add to Stock
+                        </Button>
+                        <Button bsStyle="info" bsSize="large" onClick={this.showInventory}>
+                            View Inventory
+                        </Button>
+                        <Button bsStyle="success" bsSize="large" onClick={this.showCreateProduct}>
+                            Create New Product
+                        </Button>
+                    </ButtonToolbar>
+                    {this.state.showSellProducts ? <SellProductButtons /> : null}
+                    {this.state.showAddToStock ? <AddToStockButtons /> : null}
+                    {this.state.showInventory ? <Inventory /> : null}
+                    {this.state.showCreateProduct ? <CreateProduct /> : null}
+                </div>
+                    : null}
             </div>);
     }
 
@@ -88,7 +88,7 @@ class Container extends Component {
 
 const mapStateToProps = state => {
     return {
-        isAuthed: state.main.isAuthed,
+        isAuthed: state.auth.isAuthed,
         showLogin: state.main.showLogin,
         showCreateAccount: state.main.showCreateAccount
     }
