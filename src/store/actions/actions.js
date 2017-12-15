@@ -13,11 +13,15 @@ export const AUTH_FAIL = 'AUTH_FAIL';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
 export const LOAD_PRODUCTS = 'LOAD_PRODUCTS';
-export const UPDATE_PRODUCTS = 'UPDATE_PRODUCTS';
+export const UPDATE_PRODUCTS = 'UPDATE_PRODUCT';
+export const EDIT_PRODUCT = 'EDIT_PRODUCT';
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+
+export const INCREMENT_QUANTITY = 'INCREMENT_QUANTITY';
+export const UPDATE_QUANTITY = 'UPDATE QUANTITY';
 
 
 // ACTION CREATORS
@@ -101,6 +105,13 @@ export const updateProducts = (product_name, description, price, quantity) => {
     };
 };
 
+export const editProduct = (products) => {
+    return {
+        type: EDIT_PRODUCT,
+        products: products
+    }
+}
+
 export const deleteProduct = (productID, index) => {
     return {
         type: DELETE_PRODUCT,
@@ -113,8 +124,25 @@ export const removeFromCart = (index) => {
     return {
         type: REMOVE_FROM_CART,
         index: index
-    }
-}
+    };
+};
+
+export const incrementQuantity = (productID, quantity) => {
+    return {
+        type: INCREMENT_QUANTITY,
+        productID: productID,
+        quantity: quantity
+    };
+};
+
+export const updateQuantity = (product_name, productID, quantity) => {
+    return {
+        type: UPDATE_QUANTITY,
+        product_name: product_name,
+        productID: productID,
+        quantity: quantity
+    };
+};
 
 export const auth = (email, password) => {
     return dispatch => {

@@ -66,6 +66,7 @@ class CreateProduct extends Component {
         return <div className="container" style={{ textAlign: "left" }}>
             <Col md={2} />
             <Col md={8}>
+            <br /><br />
         {this.state.show ?
                 <form>
                     <FormGroup controlId="formControlsSelect">
