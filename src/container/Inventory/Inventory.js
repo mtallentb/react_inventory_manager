@@ -35,6 +35,7 @@ class Inventory extends Component {
     updateProduct = (product_name, description, price, quantity) => {
         console.log("Current Product ID: " + this.state.productToUpdate);
         console.log(product_name, description, price, quantity);
+
         let updatedProduct = {
             category_id: 15,
             product_name: product_name,
@@ -43,6 +44,8 @@ class Inventory extends Component {
             quantity: quantity,
             photo: "photo"
         }
+
+        console.log("updatedProduct: " + updatedProduct);
 
         axios({
             method: 'patch',
@@ -59,8 +62,10 @@ class Inventory extends Component {
                 })
                     .then((response) => {
                         console.log(response.data);
-                        // this.props.updateProducts(response.data);
-                    });
+                        let newProductsArr = response.data
+                        this.props.updateProduct(newProductsArr);
+                        this.setState({ showModal: false });
+                    })
             });
     };
 
@@ -157,7 +162,7 @@ class Inventory extends Component {
                                 </form>
                             </Modal.Body>
                             <Modal.Footer>
-                                <Button onClick={() => this.setState({ showModal: false })}>Close</Button>
+                                <Button onClick={() => this.setState({ showModal: false })}>Cancel</Button>
                                 <Button type="button" bsStyle="success" onClick={() => this.updateProduct(this.product_name.value, this.description.value, this.price.value, this.quantity.value)}>Update Product</Button>
                             </Modal.Footer>
                         </Modal.Dialog>
@@ -178,7 +183,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onDeleteProduct: (productID, index) => dispatch(actionTypes.deleteProduct(productID, index))
+        onDeleteProduct: (productID, index) => dispatch(actionTypes.deleteProduct(productID, index)),
+        updateProduct: (products) => dispatch(actionTypes.editProduct(products))
     }
 }
 

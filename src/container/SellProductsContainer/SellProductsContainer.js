@@ -10,16 +10,6 @@ import * as actionTypes from '../../store/actions/actions';
 
 class ProductButtons extends Component {
 
-    state = {
-        cart: []
-    }
-
-    // addToCart = (product) => {
-    //     let newArr = this.state.cart.concat(product);
-    //     this.setState({ cart: newArr });
-    //     console.log(this.state.cart);
-    // }
-
     render() {
         const products = this.props.products.map((product, index) => {
             return <ProductButton key={product.id} name={product.product_name} quantity={product.quantity} click={() => 
@@ -33,6 +23,7 @@ class ProductButtons extends Component {
 
         return (
             <div style={{ margin: 10 }} >
+                <br /><br />
                 <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
                     {products.slice(0, 4)}
                 </ButtonToolbar>
