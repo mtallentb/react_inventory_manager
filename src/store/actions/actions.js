@@ -148,7 +148,7 @@ export const auth = (email, password) => {
     return dispatch => {
         dispatch(authStart());
         axios
-            .post("http://localhost:5000/authenticate", {
+            .post("https://ancient-reef-75174.herokuapp.com/authenticate", {
                 email: email,
                 password: password
             })
@@ -157,7 +157,7 @@ export const auth = (email, password) => {
                 dispatch(authSuccess(response.data.auth_token));
                 axios({
                     method: 'get',
-                    url: 'http://localhost:5000/products/',
+                    url: 'https://ancient-reef-75174.herokuapp.com/products/',
                     headers: { 'Authorization': response.data.auth_token }
                 })
                     .then((response) => {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, Modal, Button, Table } from 'react-bootstrap/lib/';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions/actions';
+import axios from 'axios';
 
 
 class Navigation extends Component {
@@ -16,6 +17,36 @@ class Navigation extends Component {
 
     hideCart = () => {
         this.setState({ showCart: false });
+    };
+
+    checkout = () => {
+        console.log(this.props.cart);
+        axios({
+            method: 'post',
+            url: 'http://localhost:5000/orders',
+            data: { user_id: 1 },
+            headers: { 'Authorization': this.props.token }
+        })
+        .then((response) => {
+            console.log(response);
+            let orderID = response.data.id;
+            console.log(orderID);
+            this.props.cart.forEach((item, index) => {
+                console.log("Product ID: " + item.id);
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:5000/order_line_items',
+                    data: { 
+                        product_id: item.id,
+                        order_id: orderID
+                     },
+                    headers: { 'Authorization': this.props.token }
+                })
+                .then((response) => {
+                    console.log(response);
+                });
+            });
+        });
     };
 
     render() {
@@ -90,7 +121,7 @@ class Navigation extends Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.hideCart}>Close</Button>
-                        <Button bsStyle="primary">Checkout</Button>
+                        <Button bsStyle="primary" onClick={this.checkout}>Checkout</Button>
                     </Modal.Footer>
                 </Modal.Dialog>
             </div>

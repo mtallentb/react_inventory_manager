@@ -9,7 +9,7 @@ const initialState = {
     userID: null,
     error: null,
     loading: false,
-    products: null,
+    products: [],
     cart: []
 }
 
@@ -66,13 +66,13 @@ const editProduct = (state, action) => {
 const deleteProduct = (state, action) => {
     axios({
         method: 'delete',
-        url: 'http://localhost:5000/products/' + action.productID,
+        url: 'https://ancient-reef-75174.herokuapp.com/products/' + action.productID,
         headers: { 'Authorization': state.token }
     })
     .then(() => {
         axios({
             method: 'get',
-            url: 'http://localhost:5000/products/',
+            url: 'https://ancient-reef-75174.herokuapp.com/products/',
             headers: { 'Authorization': state.token }
         });
     });
@@ -89,14 +89,14 @@ const incrementQuantity = (state, action) => {
     console.log(action.quantity);
     axios({
         method: 'patch',
-        url: 'http://localhost:5000/products/' + action.productID,
+        url: 'https://ancient-reef-75174.herokuapp.com/products/' + action.productID,
         data: { quantity: (action.quantity + 1) },
         headers: { 'Authorization': state.token }
     })
         .then(() => {
             axios({
                 method: 'get',
-                url: 'http://localhost:5000/products/',
+                url: 'https://ancient-reef-75174.herokuapp.com/products/',
                 headers: { 'Authorization': state.token }
             })
                 .then((response) => {
@@ -112,14 +112,14 @@ const incrementQuantity = (state, action) => {
 const updateQuantity = (state, action) => {
     axios({
         method: 'patch',
-        url: 'http://localhost:5000/products/' + action.productID,
+        url: 'https://ancient-reef-75174.herokuapp.com/products/' + action.productID,
         data: { quantity: action.quantity },
         headers: { 'Authorization': state.token }
     })
         .then(() => {
             axios({
                 method: 'get',
-                url: 'http://localhost:5000/products/',
+                url: 'https://ancient-reef-75174.herokuapp.com/products/',
                 headers: { 'Authorization': state.token }
             })
                 .then((response) => {

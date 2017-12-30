@@ -31,7 +31,7 @@ class CreateProduct extends Component {
 
         axios({
             method: 'post',
-            url: 'http://localhost:5000/products', 
+            url: 'https://ancient-reef-75174.herokuapp.com/products', 
             data: newProduct,
             headers: { 'Authorization': this.props.token }
         })
@@ -39,7 +39,7 @@ class CreateProduct extends Component {
             console.log(response);
             axios({
                 method: 'get',
-                url: 'http://localhost:5000/products/',
+                url: 'https://ancient-reef-75174.herokuapp.com/products/',
                 headers: { 'Authorization': this.props.token }
             })
             .then((response) => {

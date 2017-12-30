@@ -18,7 +18,7 @@ const mapDispatchToProps = dispatch => {
         onCreateAccount: (first_name, last_name, email, password, password_confirm) => {
             // dispatch({type: actionTypes.CREATE_ACCOUNT, first_name: first_name, last_name: last_name, email: email, password: password, password_confirm: password_confirm});
             axios
-                .post("http://localhost:5000/users", {
+                .post("https://ancient-reef-75174.herokuapp.com/users", {
                     first_name: first_name,
                     last_name: last_name,
                     email: email,
@@ -26,6 +26,7 @@ const mapDispatchToProps = dispatch => {
                     password_confirmation: password_confirm
                 })
                 .then((response) => {
+                    console.log(response);
                     console.log("Your Auth Token is: " + response.data.auth_token);
                 })
                 .then(() => dispatch({ type: actionTypes.HIDE_CREATE_ACCOUNT }))    
