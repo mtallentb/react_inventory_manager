@@ -49,7 +49,7 @@ class Inventory extends Component {
 
         axios({
             method: 'patch',
-            url: 'http://localhost:5000/products/' + this.state.productToUpdate,
+            url: 'https://ancient-reef-75174.herokuapp.com/products/' + this.state.productToUpdate,
             data: updatedProduct,
             headers: { 'Authorization': this.props.token }
         })
@@ -57,7 +57,7 @@ class Inventory extends Component {
                 console.log(response);
                 axios({
                     method: 'get',
-                    url: 'http://localhost:5000/products/',
+                    url: 'https://ancient-reef-75174.herokuapp.com/products/',
                     headers: { 'Authorization': this.props.token }
                 })
                     .then((response) => {

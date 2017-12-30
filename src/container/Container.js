@@ -7,6 +7,7 @@ import CreateAccountContainer from './CreateAccountContainer/CreateAccountContai
 import SellProductButtons from './SellProductsContainer/SellProductsContainer';
 import AddToStockButtons from './AddToStockContainer/AddToStockContainer';
 import Inventory from './Inventory/Inventory';
+import Orders from './OrdersContainer/OrdersContainer';
 import CreateProduct from './CreateProduct/CreateProduct';
 
 class Container extends Component {
@@ -15,7 +16,8 @@ class Container extends Component {
         showSellProducts: false,
         showAddToStock: false,
         showInventory: false,
-        showCreateProduct: false
+        showCreateProduct: false,
+        showOrders: false
     }
 
     showSellProducts = () => {
@@ -23,7 +25,8 @@ class Container extends Component {
             showSellProducts: true,
             showAddToStock: false,
             showInventory: false,
-            showCreateProduct: false
+            showCreateProduct: false,
+            showOrders: false
         });
     }
 
@@ -32,7 +35,8 @@ class Container extends Component {
             showSellProducts: false,
             showAddToStock: true,
             showInventory: false,
-            showCreateProduct: false
+            showCreateProduct: false,
+            showOrders: false
         });
     }
 
@@ -41,7 +45,8 @@ class Container extends Component {
             showSellProducts: false,
             showAddToStock: false,
             showInventory: true,
-            showCreateProduct: false
+            showCreateProduct: false,
+            showOrders: false
         });
     }
 
@@ -50,7 +55,18 @@ class Container extends Component {
             showSellProducts: false,
             showAddToStock: false,
             showInventory: false,
-            showCreateProduct: true
+            showCreateProduct: true,
+            showOrders: false
+        });
+    }
+
+    showOrders = () => {
+        this.setState({
+            showSellProducts: false,
+            showAddToStock: false,
+            showInventory: false,
+            showCreateProduct: false,
+            showOrders: true
         });
     }
 
@@ -74,11 +90,15 @@ class Container extends Component {
                         <Button bsStyle="success" bsSize="large" onClick={this.showCreateProduct}>
                             Create New Product
                         </Button>
+                        <Button bsStyle="success" bsSize="large" onClick={this.showOrders}>
+                            Order History
+                        </Button>
                     </ButtonToolbar>
                     {this.state.showSellProducts ? <SellProductButtons /> : null}
                     {this.state.showAddToStock ? <AddToStockButtons /> : null}
                     {this.state.showInventory ? <Inventory /> : null}
                     {this.state.showCreateProduct ? <CreateProduct /> : null}
+                    {this.state.showOrders ? <Orders /> : null}
                 </div>
                     : null}
             </div>);
