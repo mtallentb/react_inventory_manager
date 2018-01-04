@@ -70,6 +70,9 @@ export const removeFromCart = (index) => {
     };
 };
 
+export const clearCart = () => ({ type: actions.CLEAR_CART });
+
+
 export const incrementQuantity = (productID, quantity) => {
     return {
         type: actions.INCREMENT_QUANTITY,

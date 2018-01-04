@@ -11,19 +11,53 @@ import {
     FormControl
  } from 'react-bootstrap/lib/';
 import * as actionTypes from '../../store/actions';
-// import axios from 'axios';
-
-
-
+import axios from 'axios';
 
 class AddToStockButtons extends Component {
 
     state = {
         cart: [],
+        products: this.props.products,
         showModal: false,
         updatedProduct: null,
         updatedProductID: null
     }
+
+    updateQuantity = (productID, quantity) => {
+
+        axios({
+            method: 'patch',
+            url: 'https://ancient-reef-75174.herokuapp.com/products/' + productID,
+            data: { quantity: quantity },
+            headers: { 'Authorization': this.props.token }
+        })
+            .then((response) => {
+                console.log("Post PATCH Response: " + response);
+                axios({
+                    method: 'get',
+                    url: 'https://ancient-reef-75174.herokuapp.com/products/',
+                    headers: { 'Authorization': this.props.token }
+                })
+                    .then((response) => {
+                        console.log(response.data);
+                        // let newProductsArr = response.data
+                        // this.props.updateProduct(newProductsArr);
+                        this.setState({ showModal: false });
+                    })
+            });
+    };
+
+    updateLocalQuantity = (productID, quantity) => {
+        console.log("Given product ID: " + productID);
+        let products = [...this.state.products];
+        products.forEach((item, index) => {
+            if (item.id === productID) {
+                console.log("Matching Item " + item.product_name);
+                item.quantity = quantity
+            }
+        });
+        this.setState({ products: products });
+    };
 
     addToCart = (product) => {
         let newArr = this.state.cart.concat(product);
@@ -32,7 +66,7 @@ class AddToStockButtons extends Component {
     }
 
     render() {
-        const products = this.props.products.map(product => {
+        const products = this.state.products.map(product => {
             return <ProductButton key={product.id} name={product.product_name} quantity={product.quantity} click={() => this.setState({ showModal: true, updatedProduct: product.product_name, updatedProductID: product.id })} />
         });
 
@@ -92,7 +126,8 @@ class AddToStockButtons extends Component {
                             <Modal.Footer>
                                 <Button onClick={() => this.setState({ showModal: false })}>Close</Button>
                                 <Button bsStyle="success" onClick={() => {
-                                    this.props.updateQuantity(this.state.updatedProduct, this.state.updatedProductID, this.quantity.value);
+                                    this.updateQuantity(this.state.updatedProductID, this.quantity.value);
+                                    this.updateLocalQuantity(this.state.updatedProductID, this.quantity.value);
                                     this.setState({ showModal: false });
                                     }}>Update Quantity</Button>
                             </Modal.Footer>
@@ -106,6 +141,7 @@ class AddToStockButtons extends Component {
 
 const mapStateToProps = state => {
     return {
+        token: state.auth.token,
         products: state.auth.products
     }
 }
@@ -113,7 +149,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         incrementQuantity: (productID, quantity) => dispatch(actionTypes.incrementQuantity(productID, quantity)),
-        updateQuantity: (product_name, productID, quantity) => dispatch(actionTypes.updateQuantity(product_name, productID, quantity))
+        updateQuantity: (product_name, productID, quantity) => dispatch(actionTypes.updateQuantity(product_name, productID, quantity)),
+        updateProduct: (products) => dispatch(actionTypes.editProduct(products))
     }
 }
 

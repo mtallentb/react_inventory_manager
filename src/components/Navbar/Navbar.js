@@ -19,7 +19,21 @@ class Navigation extends Component {
         this.setState({ showCart: false });
     };
 
+    updateLocalQuantity = (productID, quantity) => {
+        console.log("Given product ID: " + productID);
+        let products = [...this.state.products];
+        products.forEach((item, index) => {
+            if (item.id === productID) {
+                console.log("Matching Item " + item.product_name);
+                item.quantity = quantity
+            }
+        });
+        this.setState({ products: products });
+    };
+
     checkout = () => {
+        let cart_product_ids = this.props.cart.map((product) => product.id);
+        console.log(cart_product_ids);
         console.log(this.props.cart);
         axios({
             method: 'post',
@@ -32,8 +46,7 @@ class Navigation extends Component {
             let orderID = response.data.id;
             console.log("Order ID:" + orderID);
             this.props.cart.forEach((item, index) => {
-                // console.log("Product ID: " + item.id);
-                console.log("Product Name: " + item.product_name);
+                let cart_quantity = cart_product_ids.filter((productID) => productID === item.id).length;
                 axios({
                     method: 'post',
                     url: 'https://ancient-reef-75174.herokuapp.com/order_line_items',
@@ -45,10 +58,30 @@ class Navigation extends Component {
                      },
                     headers: { 'Authorization': this.props.token }
                 })
-                .then((response) => {
-                    console.log(response);
+                .then(() => {
+                    axios({
+                        method: 'patch',
+                        url: 'https://ancient-reef-75174.herokuapp.com/products/' + item.id,
+                        data: { quantity: item.quantity - cart_quantity },
+                        headers: { 'Authorization': this.props.token }
+                    });
+                })
+                .then(() => {
+                    axios({
+                        method: 'get',
+                        url: 'https://ancient-reef-75174.herokuapp.com/products/',
+                        headers: { 'Authorization': this.props.token }
+                    })
+                    .then((response) => {
+                        let newProductsArr = response.data
+                        this.props.updateProduct(newProductsArr);
+                    });
                 });
             });
+        })
+        .then(() => {
+            this.props.clearCart()
+            this.setState({ showCart: false });
         });
     };
 
@@ -101,10 +134,9 @@ class Navigation extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                
                                 {this.props.cart.map((item, index) => {
                                     return <tr key={index}>
-                                        <td>{index +1}</td>
+                                        <td>{index + 1}</td>
                                         <td>{item.product_name}</td>
                                         <td>${item.price}</td>
                                         <td style={{textAlign: 'center'}}><Button bsSize="small" bsStyle="danger" onClick={() => {
@@ -147,7 +179,9 @@ const mapDispatchToProps = dispatch => {
         login: () => dispatch(actionTypes.showLogin()),
         logout: () => dispatch(actionTypes.authLogout()),
         createAccount: () => dispatch(actionTypes.showCreateAccount()),
-        removeFromCart: (index) => dispatch(actionTypes.removeFromCart(index))
+        removeFromCart: (index) => dispatch(actionTypes.removeFromCart(index)),
+        clearCart: () => dispatch(actionTypes.clearCart()),
+        updateProduct: (products) => dispatch(actionTypes.editProduct(products))
     }
 }
 

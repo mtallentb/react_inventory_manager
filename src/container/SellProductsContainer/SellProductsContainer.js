@@ -5,19 +5,21 @@ import { ButtonToolbar } from 'react-bootstrap/lib/';
 import * as actionTypes from '../../store/actions';
 // import axios from 'axios';
 
-
-
-
 class ProductButtons extends Component {
 
+
     render() {
-        const products = this.props.products.map((product, index) => {
+
+        const sortKeys = (a, b) => {return a.id - b.id};
+
+        const products = this.props.products.sort(sortKeys).map((product, index) => {
             return <ProductButton key={product.id} name={product.product_name} quantity={product.quantity} click={() => 
                 this.props.onAddToCart({
                     id: product.id,
                     index: index,
                     product_name: product.product_name,
-                    price: product.price
+                    price: product.price,
+                    quantity: product.quantity
                 })} />
         });
 

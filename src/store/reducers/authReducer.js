@@ -85,6 +85,10 @@ const removeFromCart = (state, action) => {
     return updateObject(state, { cart: newCart });
 };
 
+const clearCart = (state, action) => {
+    return updateObject(state, { cart: [] });
+}
+
 const incrementQuantity = (state, action) => {
     console.log(action.quantity);
     axios({
@@ -144,6 +148,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.DELETE_PRODUCT: return deleteProduct(state, action);
         case actionTypes.EDIT_PRODUCT: return editProduct(state, action);
         case actionTypes.REMOVE_FROM_CART: return removeFromCart(state, action);
+        case actionTypes.CLEAR_CART: return clearCart(state, action);
         case actionTypes.INCREMENT_QUANTITY: return incrementQuantity(state, action);
         case actionTypes.UPDATE_QUANTITY: return updateQuantity(state, action);
         default: return state;
