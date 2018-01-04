@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ProductButton from '../../components/SellProducts/SellProductButtons';
 import { ButtonToolbar } from 'react-bootstrap/lib/';
-import * as actionTypes from '../../store/actions/actions';
+import * as actionTypes from '../../store/actions';
 // import axios from 'axios';
 
 

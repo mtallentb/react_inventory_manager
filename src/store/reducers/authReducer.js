@@ -1,7 +1,7 @@
-import * as actionTypes from '../actions/actions';
+import * as actionTypes from '../actions';
 import updateObject from '../utility';
 import axios from 'axios';
-import { hideCreateProduct } from '../actions/actions';
+
 
 const initialState = {
     isAuthed: false,

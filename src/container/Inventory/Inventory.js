@@ -12,7 +12,7 @@ import {
     FormControl 
 } from "react-bootstrap/lib/";
 import axios from 'axios';
-import * as actionTypes from '../../store/actions/actions';
+import * as actionTypes from '../../store/actions';
 
 
 class Inventory extends Component {

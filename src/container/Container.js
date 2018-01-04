@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, ButtonToolbar } from 'react-bootstrap/lib/';
-// import * as actionTypes from '../store/actions/actions';
+// import * as actionTypes from '../store/actions';
 import LoginContainer from './LoginContainer/LoginContainer';
 import CreateAccountContainer from './CreateAccountContainer/CreateAccountContainer';
 import SellProductButtons from './SellProductsContainer/SellProductsContainer';
@@ -90,7 +90,7 @@ class Container extends Component {
                         <Button bsStyle="success" bsSize="large" onClick={this.showCreateProduct}>
                             Create New Product
                         </Button>
-                        <Button bsStyle="success" bsSize="large" onClick={this.showOrders}>
+                        <Button bsStyle="warning" bsSize="large" onClick={this.showOrders}>
                             Order History
                         </Button>
                     </ButtonToolbar>

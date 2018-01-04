@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actions/actions'
+import * as actionTypes from '../../store/actions';
 import CreateAccount from '../../components/CreateAccount/CreateAccount';
 import axios from 'axios';
 

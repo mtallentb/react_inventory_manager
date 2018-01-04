@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, Modal, Button, Table } from 'react-bootstrap/lib/';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actions/actions';
+import * as actionTypes from '../../store/actions';
 import axios from 'axios';
 
 
@@ -23,22 +23,25 @@ class Navigation extends Component {
         console.log(this.props.cart);
         axios({
             method: 'post',
-            url: 'http://localhost:5000/orders',
+            url: 'https://ancient-reef-75174.herokuapp.com/orders',
             data: { user_id: 1 },
             headers: { 'Authorization': this.props.token }
         })
         .then((response) => {
             console.log(response);
             let orderID = response.data.id;
-            console.log(orderID);
+            console.log("Order ID:" + orderID);
             this.props.cart.forEach((item, index) => {
-                console.log("Product ID: " + item.id);
+                // console.log("Product ID: " + item.id);
+                console.log("Product Name: " + item.product_name);
                 axios({
                     method: 'post',
-                    url: 'http://localhost:5000/order_line_items',
+                    url: 'https://ancient-reef-75174.herokuapp.com/order_line_items',
                     data: { 
                         product_id: item.id,
-                        order_id: orderID
+                        order_id: orderID,
+                        product_name: item.product_name,
+                        price: item.price
                      },
                     headers: { 'Authorization': this.props.token }
                 })

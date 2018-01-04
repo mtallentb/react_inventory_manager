@@ -10,7 +10,7 @@ import {
     HelpBlock,
     FormControl
  } from 'react-bootstrap/lib/';
-import * as actionTypes from '../../store/actions/actions';
+import * as actionTypes from '../../store/actions';
 // import axios from 'axios';
 
 
