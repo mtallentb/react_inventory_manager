@@ -72,7 +72,7 @@ class Container extends Component {
 
     render() {
         return ( 
-            <div>
+            <div className='container'>
                 {this.props.showLogin ? <LoginContainer /> : null}
                 {this.props.showCreateAccount ? <CreateAccountContainer /> : null}
                 {this.props.isAuthed ?
