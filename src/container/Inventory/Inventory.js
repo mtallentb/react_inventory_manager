@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { 
     Table, 
     Col, 
@@ -10,9 +10,9 @@ import {
     ControlLabel, 
     HelpBlock, 
     FormControl 
-} from "react-bootstrap/lib/";
-import axios from 'axios';
-import * as actionTypes from '../../store/actions/actions';
+} from "react-bootstrap/lib/"
+import axios from 'axios'
+import * as actionTypes from '../../store/actions'
 
 
 class Inventory extends Component {
@@ -23,18 +23,72 @@ class Inventory extends Component {
         preEditProductName: null,
         preEditDescription: null,
         preEditPrice: null,
-        preEditQuantity: null
+        preEditQuantity: null,
+        showMensCategory: false,
+        showWomensCategory: false,
+        showKidsCategory: false,
+        showMiscCategory: false
+    }
+
+    showAllProducts = () => {
+        this.setState({
+            products: this.props.products,
+            showMensCategory: false,
+            showWomensCategory: false,
+            showKidsCategory: false,
+            showMiscCategory: false
+        })
+    }
+
+    showMensCategory = () => {
+        this.setState({
+            showMensCategory: true,
+            showWomensCategory: false,
+            showKidsCategory: false,
+            showMiscCategory: false
+        })
+    }
+    showWomensCategory = () => {
+        this.setState({
+            showMensCategory: false,
+            showWomensCategory: true,
+            showKidsCategory: false,
+            showMiscCategory: false
+        })
+    }
+    showKidsCategory = () => {
+        this.setState({
+            showMensCategory: false,
+            showWomensCategory: false,
+            showKidsCategory: true,
+            showMiscCategory: false
+        })
+    }
+    showMiscCategory = () => {
+        this.setState({
+            showMensCategory: false,
+            showWomensCategory: false,
+            showKidsCategory: false,
+            showMiscCategory: true
+        })
+    }
+
+    filterCategory = (category_id) => {
+        console.log(category_id)
+        let products = this.props.products.filter((product) => product.category_id === category_id)
+        console.log(products)
+        this.setState({ products: products })
     }
 
     deleteProduct = (productID, index) => {
-        const newProducts = [...this.state.products];
-        newProducts.splice(index, 1);
-        this.setState({ products: newProducts });
+        const newProducts = [...this.state.products]
+        newProducts.splice(index, 1)
+        this.setState({ products: newProducts })
     }
 
     updateProduct = (product_name, description, price, quantity) => {
-        console.log("Current Product ID: " + this.state.productToUpdate);
-        console.log(product_name, description, price, quantity);
+        console.log("Current Product ID: " + this.state.productToUpdate)
+        console.log(product_name, description, price, quantity)
 
         let updatedProduct = {
             category_id: 15,
@@ -45,7 +99,7 @@ class Inventory extends Component {
             photo: "photo"
         }
 
-        console.log("updatedProduct: " + updatedProduct);
+        console.log("updatedProduct: " + updatedProduct)
 
         axios({
             method: 'patch',
@@ -54,20 +108,20 @@ class Inventory extends Component {
             headers: { 'Authorization': this.props.token }
         })
             .then((response) => {
-                console.log(response);
+                console.log(response)
                 axios({
                     method: 'get',
                     url: 'https://ancient-reef-75174.herokuapp.com/products/',
                     headers: { 'Authorization': this.props.token }
                 })
                     .then((response) => {
-                        console.log(response.data);
+                        console.log(response.data)
                         let newProductsArr = response.data
-                        this.props.updateProduct(newProductsArr);
-                        this.setState({ showModal: false });
+                        this.props.updateProduct(newProductsArr)
+                        this.setState({ showModal: false })
                     })
-            });
-    };
+            })
+    }
 
     render() {
 
@@ -78,7 +132,7 @@ class Inventory extends Component {
                     <FormControl {...props} onChange={props.change} />
                     {help && <HelpBlock>{help}</HelpBlock>}
                 </FormGroup>
-            );
+            )
         }
 
         const products = this.state.products.map((product, index) => {
@@ -99,22 +153,64 @@ class Inventory extends Component {
                         preEditQuantity: product.quantity
                     })}} key={product.id}>Edit</Button></td>
                 <td><Button bsSize="small" bsStyle="danger" onClick={() => {
-                    this.deleteProduct(product.id, index);
-                    this.props.onDeleteProduct(product.id, index);
+                    this.deleteProduct(product.id, index)
+                    this.props.onDeleteProduct(product.id, index)
                 }}>Delete</Button></td>
-            </tr>;
-        });
+            </tr>
+        })
 
-        return <div className="container">
+        return <div className="container"style={{ margin: 10 }}>
+                <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
+                    <Button onClick={this.showAllProducts}>Show All</Button>
+                    <Button onClick={this.showMensCategory}>Men</Button>
+                    <Button onClick={this.showWomensCategory}>Women</Button>
+                    <Button onClick={this.showKidsCategory}>Kids</Button>
+                    <Button onClick={this.showMiscCategory}>Miscellaneous</Button>
+                </ButtonToolbar>
             <Col md={1} />
             <Col md={10}>
-                <ButtonToolbar style={{ justifyContent: 'center', display: 'flex' }}>
-                    <Button style={{ margin: 10 }} onClick={() => console.log('All Products Clicked!')}>All Products</Button>
-                    <Button style={{ margin: 10 }} onClick={() => console.log('Men\'s Clothes Clicked!')}>Men's</Button>
-                    <Button style={{ margin: 10 }} onClick={() => console.log('Women\'s Clothes Clicked!')}>Women's</Button>
-                    <Button style={{ margin: 10 }} onClick={() => console.log('Gameday Clicked!')}>Gameday</Button>
-                    <Button style={{ margin: 10 }} onClick={() => console.log('Gifts Clicked!')}>Gifts</Button>
-                </ButtonToolbar>
+                <br />
+                {this.state.showMensCategory ?
+                    <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
+                        <Button onClick={() => this.filterCategory(1)}>Men's T-Shirts</Button>
+                        <Button onClick={() => this.filterCategory(2)}>Men's Hoodies</Button>
+                        <Button onClick={() => this.filterCategory(3)}>Men's Pants</Button>
+                        <Button onClick={() => this.filterCategory(4)}>Men's Shorts</Button>
+                        <Button onClick={() => this.filterCategory(5)}>Men's Jackets</Button>
+                        <Button onClick={() => this.filterCategory(6)}>Men's Hats</Button>
+                        <Button onClick={() => this.filterCategory(7)}>Men's Socks</Button>
+                    </ButtonToolbar>
+                : null}
+                {this.state.showWomensCategory ?
+                    <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
+                        <Button onClick={() => this.filterCategory(8)}>Women's T-Shirts</Button>
+                        <Button onClick={() => this.filterCategory(9)}>Women's Tank Tops</Button>
+                        <Button onClick={() => this.filterCategory(10)}>Women's Hoodies</Button>
+                        <Button onClick={() => this.filterCategory(11)}>Women's Jackets</Button>
+                        <Button onClick={() => this.filterCategory(12)}>Women's Shorts</Button>
+                        <Button onClick={() => this.filterCategory(13)}>Women's Hats</Button>
+                        <Button onClick={() => this.filterCategory(14)}>Women's Socks</Button>
+                    </ButtonToolbar>
+                : null}
+                {this.state.showKidsCategory ?
+                    <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
+                        <Button onClick={() => this.filterCategory(15)}>Kids' T-Shirts</Button>
+                        <Button onClick={() => this.filterCategory(16)}>Kids' Hoodies</Button>
+                        <Button onClick={() => this.filterCategory(17)}>Kids' Pants</Button>
+                        <Button onClick={() => this.filterCategory(18)}>Kids' Shorts</Button>
+                    </ButtonToolbar>
+                : null}
+                {this.state.showMiscCategory ?
+                    <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
+                        <Button onClick={() => this.filterCategory(19)}>Ties</Button>
+                        <Button onClick={() => this.filterCategory(20)}>Cups</Button>
+                        <Button onClick={() => this.filterCategory(21)}>Mugs</Button>
+                        <Button onClick={() => this.filterCategory(22)}>Towels</Button>
+                        <Button onClick={() => this.filterCategory(23)}>Flags</Button>
+                        <Button onClick={() => this.filterCategory(24)}>Keychains</Button>
+                    </ButtonToolbar>
+                : null}
+                <br />
                 <Table striped bordered condensed hover>
                     <thead>
                         <tr>
@@ -170,7 +266,7 @@ class Inventory extends Component {
                     : null}
             </Col>
             <Col md={1} />
-        </div>;
+        </div>
     }
 }
 
@@ -188,4 +284,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Inventory);
+export default connect(mapStateToProps, mapDispatchToProps)(Inventory)

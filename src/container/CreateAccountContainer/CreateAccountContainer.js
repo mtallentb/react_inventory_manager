@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actions/actions'
-import CreateAccount from '../../components/CreateAccount/CreateAccount';
-import axios from 'axios';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import * as actionTypes from '../../store/actions'
+import CreateAccount from '../../components/CreateAccount/CreateAccount'
+import axios from 'axios'
 
 
 class CreateAccountContainer extends Component {
     
     render() {
-        return <CreateAccount create={(first_name, last_name, email, password, password_confirm) => this.props.onCreateAccount(first_name, last_name, email, password, password_confirm)} />;
+        return <CreateAccount create={(first_name, last_name, email, password, password_confirm) => this.props.onCreateAccount(first_name, last_name, email, password, password_confirm)} />
     }
 
 }
@@ -16,7 +16,7 @@ class CreateAccountContainer extends Component {
 const mapDispatchToProps = dispatch => {
     return {
         onCreateAccount: (first_name, last_name, email, password, password_confirm) => {
-            // dispatch({type: actionTypes.CREATE_ACCOUNT, first_name: first_name, last_name: last_name, email: email, password: password, password_confirm: password_confirm});
+            // dispatch({type: actionTypes.CREATE_ACCOUNT, first_name: first_name, last_name: last_name, email: email, password: password, password_confirm: password_confirm})
             axios
                 .post("https://ancient-reef-75174.herokuapp.com/users", {
                     first_name: first_name,
@@ -26,15 +26,15 @@ const mapDispatchToProps = dispatch => {
                     password_confirmation: password_confirm
                 })
                 .then((response) => {
-                    console.log(response);
-                    console.log("Your Auth Token is: " + response.data.auth_token);
+                    console.log(response)
+                    console.log("Your Auth Token is: " + response.data.auth_token)
                 })
                 .then(() => dispatch({ type: actionTypes.HIDE_CREATE_ACCOUNT }))    
                 .catch((error) => {
-                    console.log(error);
-                });
+                    console.log(error)
+                })
         }
     }
 }
 
-export default connect(null, mapDispatchToProps)(CreateAccountContainer);
+export default connect(null, mapDispatchToProps)(CreateAccountContainer)
