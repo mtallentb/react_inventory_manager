@@ -8,7 +8,9 @@ import axios from 'axios'
 class CreateAccountContainer extends Component {
     
     render() {
-        return <CreateAccount create={(first_name, last_name, email, password, password_confirm) => this.props.onCreateAccount(first_name, last_name, email, password, password_confirm)} />
+        return (
+            <CreateAccount create={(first_name, last_name, email, password, password_confirm) => this.props.onCreateAccount(first_name, last_name, email, password, password_confirm)} />
+        )
     }
 
 }

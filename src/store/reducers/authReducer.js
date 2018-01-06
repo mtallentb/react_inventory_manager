@@ -69,13 +69,6 @@ const deleteProduct = (state, action) => {
         url: 'https://ancient-reef-75174.herokuapp.com/products/' + action.productID,
         headers: { 'Authorization': state.token }
     })
-    .then(() => {
-        axios({
-            method: 'get',
-            url: 'https://ancient-reef-75174.herokuapp.com/products/',
-            headers: { 'Authorization': state.token }
-        })
-    })
     return state
 }
 
@@ -87,30 +80,6 @@ const removeFromCart = (state, action) => {
 
 const clearCart = (state, action) => {
     return updateObject(state, { cart: [] })
-}
-
-const incrementQuantity = (state, action) => {
-    console.log(action.quantity)
-    axios({
-        method: 'patch',
-        url: 'https://ancient-reef-75174.herokuapp.com/products/' + action.productID,
-        data: { quantity: (action.quantity + 1) },
-        headers: { 'Authorization': state.token }
-    })
-        .then(() => {
-            axios({
-                method: 'get',
-                url: 'https://ancient-reef-75174.herokuapp.com/products/',
-                headers: { 'Authorization': state.token }
-            })
-                .then((response) => {
-                    console.log(response)
-                    let newArr = response.data
-                    console.log('New Array: ' + newArr)
-                    return updateObject(state, { products: newArr })
-                })
-        })
-        return state
 }
 
 const updateQuantity = (state, action) => {
@@ -136,6 +105,22 @@ const updateQuantity = (state, action) => {
     return state
 }
 
+const filterCategory = (state, action) => {
+    axios({
+        method: 'get',
+        url: 'https://ancient-reef-75174.herokuapp.com/products/',
+        headers: { 'Authorization': state.token }
+    })
+    .then((response) => {
+        console.log(action.category_id)
+        let productsArr = response.data.filter((product) => product.category_id === action.category_id)
+        console.log(productsArr)
+        return updateObject(state, { products: [] })
+    })
+    console.log(state)
+    return state
+} 
+
 const reducer = (state = initialState, action) => {
     switch ( action.type ) {
         case actionTypes.AUTH_START: return authStart(state, action)
@@ -149,8 +134,8 @@ const reducer = (state = initialState, action) => {
         case actionTypes.EDIT_PRODUCT: return editProduct(state, action)
         case actionTypes.REMOVE_FROM_CART: return removeFromCart(state, action)
         case actionTypes.CLEAR_CART: return clearCart(state, action)
-        case actionTypes.INCREMENT_QUANTITY: return incrementQuantity(state, action)
         case actionTypes.UPDATE_QUANTITY: return updateQuantity(state, action)
+        case actionTypes.FILTER_CATEGORY: return filterCategory(state, action)
         default: return state
     }
 }

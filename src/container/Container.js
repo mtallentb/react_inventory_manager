@@ -100,8 +100,9 @@ class Container extends Component {
                     {this.state.showCreateProduct ? <CreateProduct /> : null}
                     {this.state.showOrders ? <Orders /> : null}
                 </div>
-                    : null}
-            </div>)
+                : null}
+            </div>
+        )
     }
 
 }

@@ -13,6 +13,7 @@ import {
 } from "react-bootstrap/lib/"
 import axios from 'axios'
 import * as actionTypes from '../../store/actions'
+import Refresh from 'react-icons/lib/md/autorenew'
 
 
 class Inventory extends Component {
@@ -159,114 +160,117 @@ class Inventory extends Component {
             </tr>
         })
 
-        return <div className="container"style={{ margin: 10 }}>
+        return (
+            <div className="container"style={{ margin: 10 }}>
                 <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
+                    <Button onClick={this.showAllProducts}><Refresh /></Button>
                     <Button onClick={this.showAllProducts}>Show All</Button>
                     <Button onClick={this.showMensCategory}>Men</Button>
                     <Button onClick={this.showWomensCategory}>Women</Button>
                     <Button onClick={this.showKidsCategory}>Kids</Button>
                     <Button onClick={this.showMiscCategory}>Miscellaneous</Button>
                 </ButtonToolbar>
-            <Col md={1} />
-            <Col md={10}>
-                <br />
-                {this.state.showMensCategory ?
-                    <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                        <Button onClick={() => this.filterCategory(1)}>Men's T-Shirts</Button>
-                        <Button onClick={() => this.filterCategory(2)}>Men's Hoodies</Button>
-                        <Button onClick={() => this.filterCategory(3)}>Men's Pants</Button>
-                        <Button onClick={() => this.filterCategory(4)}>Men's Shorts</Button>
-                        <Button onClick={() => this.filterCategory(5)}>Men's Jackets</Button>
-                        <Button onClick={() => this.filterCategory(6)}>Men's Hats</Button>
-                        <Button onClick={() => this.filterCategory(7)}>Men's Socks</Button>
-                    </ButtonToolbar>
-                : null}
-                {this.state.showWomensCategory ?
-                    <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                        <Button onClick={() => this.filterCategory(8)}>Women's T-Shirts</Button>
-                        <Button onClick={() => this.filterCategory(9)}>Women's Tank Tops</Button>
-                        <Button onClick={() => this.filterCategory(10)}>Women's Hoodies</Button>
-                        <Button onClick={() => this.filterCategory(11)}>Women's Jackets</Button>
-                        <Button onClick={() => this.filterCategory(12)}>Women's Shorts</Button>
-                        <Button onClick={() => this.filterCategory(13)}>Women's Hats</Button>
-                        <Button onClick={() => this.filterCategory(14)}>Women's Socks</Button>
-                    </ButtonToolbar>
-                : null}
-                {this.state.showKidsCategory ?
-                    <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                        <Button onClick={() => this.filterCategory(15)}>Kids' T-Shirts</Button>
-                        <Button onClick={() => this.filterCategory(16)}>Kids' Hoodies</Button>
-                        <Button onClick={() => this.filterCategory(17)}>Kids' Pants</Button>
-                        <Button onClick={() => this.filterCategory(18)}>Kids' Shorts</Button>
-                    </ButtonToolbar>
-                : null}
-                {this.state.showMiscCategory ?
-                    <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                        <Button onClick={() => this.filterCategory(19)}>Ties</Button>
-                        <Button onClick={() => this.filterCategory(20)}>Cups</Button>
-                        <Button onClick={() => this.filterCategory(21)}>Mugs</Button>
-                        <Button onClick={() => this.filterCategory(22)}>Towels</Button>
-                        <Button onClick={() => this.filterCategory(23)}>Flags</Button>
-                        <Button onClick={() => this.filterCategory(24)}>Keychains</Button>
-                    </ButtonToolbar>
-                : null}
-                <br />
-                <Table striped bordered condensed hover>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Product Name</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Category</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {products}
-                    </tbody>
-                </Table>
-                {this.state.showModal ?
-                    <div className="static-modal">
-                        <Modal.Dialog>
-                            <Modal.Header>
-                                <Modal.Title>Update Existing Product</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body style={{ textAlign: 'left' }}>
-                                <form>
-                                    <FormGroup controlId="formControlsSelect">
-                                        <ControlLabel>Product Category</ControlLabel>
-                                        <FormControl componentClass="select">
-                                            <option value="Winter Gear">Select a Category</option>
-                                            <option value="Winter Gear">Winter Gear</option>
-                                            <option value="Hats">Hats</option>
-                                            <option value="Bags">Bags</option>
-                                            <option value="Stickers">Stickers</option>
-                                        </FormControl>
-                                    </FormGroup>
-                                    <FieldGroup id="formControlsText" type="text" label="Product Name" placeholder={this.state.preEditProductName} inputRef={(ref) => { this.product_name = ref }} />
-                                    <FieldGroup id="formControlsPrice" type="text" label="Price" placeholder={this.state.preEditPrice} inputRef={(ref) => { this.price = ref }} />
-                                    <FieldGroup id="formControlsPrice" type="text" label="Quantity" placeholder={this.state.preEditQuantity} inputRef={(ref) => { this.quantity = ref }} />
-                                    <FieldGroup id="formControlsFile" type="file" label="Product Image" />
-
-                                    <FormGroup controlId="formControlsTextarea">
-                                        <ControlLabel>Product Description</ControlLabel>
-                                        <FormControl componentClass="textarea" placeholder={this.state.preEditDescription} inputRef={(ref) => { this.description = ref }} />
-                                    </FormGroup>
-                                </form>
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <Button onClick={() => this.setState({ showModal: false })}>Cancel</Button>
-                                <Button type="button" bsStyle="success" onClick={() => this.updateProduct(this.product_name.value, this.description.value, this.price.value, this.quantity.value)}>Update Product</Button>
-                            </Modal.Footer>
-                        </Modal.Dialog>
-                    </div>
+                <Col md={1} />
+                <Col md={10}>
+                    <br />
+                    {this.state.showMensCategory ?
+                        <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
+                            <Button onClick={() => this.filterCategory(1)}>Men's T-Shirts</Button>
+                            <Button onClick={() => this.filterCategory(2)}>Men's Hoodies</Button>
+                            <Button onClick={() => this.filterCategory(3)}>Men's Pants</Button>
+                            <Button onClick={() => this.filterCategory(4)}>Men's Shorts</Button>
+                            <Button onClick={() => this.filterCategory(5)}>Men's Jackets</Button>
+                            <Button onClick={() => this.filterCategory(6)}>Men's Hats</Button>
+                            <Button onClick={() => this.filterCategory(7)}>Men's Socks</Button>
+                        </ButtonToolbar>
                     : null}
-            </Col>
-            <Col md={1} />
-        </div>
+                    {this.state.showWomensCategory ?
+                        <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
+                            <Button onClick={() => this.filterCategory(8)}>Women's T-Shirts</Button>
+                            <Button onClick={() => this.filterCategory(9)}>Women's Tank Tops</Button>
+                            <Button onClick={() => this.filterCategory(10)}>Women's Hoodies</Button>
+                            <Button onClick={() => this.filterCategory(11)}>Women's Jackets</Button>
+                            <Button onClick={() => this.filterCategory(12)}>Women's Shorts</Button>
+                            <Button onClick={() => this.filterCategory(13)}>Women's Hats</Button>
+                            <Button onClick={() => this.filterCategory(14)}>Women's Socks</Button>
+                        </ButtonToolbar>
+                    : null}
+                    {this.state.showKidsCategory ?
+                        <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
+                            <Button onClick={() => this.filterCategory(15)}>Kids' T-Shirts</Button>
+                            <Button onClick={() => this.filterCategory(16)}>Kids' Hoodies</Button>
+                            <Button onClick={() => this.filterCategory(17)}>Kids' Pants</Button>
+                            <Button onClick={() => this.filterCategory(18)}>Kids' Shorts</Button>
+                        </ButtonToolbar>
+                    : null}
+                    {this.state.showMiscCategory ?
+                        <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
+                            <Button onClick={() => this.filterCategory(19)}>Ties</Button>
+                            <Button onClick={() => this.filterCategory(20)}>Cups</Button>
+                            <Button onClick={() => this.filterCategory(21)}>Mugs</Button>
+                            <Button onClick={() => this.filterCategory(22)}>Towels</Button>
+                            <Button onClick={() => this.filterCategory(23)}>Flags</Button>
+                            <Button onClick={() => this.filterCategory(24)}>Keychains</Button>
+                        </ButtonToolbar>
+                    : null}
+                    <br />
+                    <Table striped bordered condensed hover>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Product Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Category</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {products}
+                        </tbody>
+                    </Table>
+                    {this.state.showModal ?
+                        <div className="static-modal">
+                            <Modal.Dialog>
+                                <Modal.Header>
+                                    <Modal.Title>Update Existing Product</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body style={{ textAlign: 'left' }}>
+                                    <form>
+                                        <FormGroup controlId="formControlsSelect">
+                                            <ControlLabel>Product Category</ControlLabel>
+                                            <FormControl componentClass="select">
+                                                <option value="Winter Gear">Select a Category</option>
+                                                <option value="Winter Gear">Winter Gear</option>
+                                                <option value="Hats">Hats</option>
+                                                <option value="Bags">Bags</option>
+                                                <option value="Stickers">Stickers</option>
+                                            </FormControl>
+                                        </FormGroup>
+                                        <FieldGroup id="formControlsText" type="text" label="Product Name" placeholder={this.state.preEditProductName} inputRef={(ref) => { this.product_name = ref }} />
+                                        <FieldGroup id="formControlsPrice" type="text" label="Price" placeholder={this.state.preEditPrice} inputRef={(ref) => { this.price = ref }} />
+                                        <FieldGroup id="formControlsPrice" type="text" label="Quantity" placeholder={this.state.preEditQuantity} inputRef={(ref) => { this.quantity = ref }} />
+                                        <FieldGroup id="formControlsFile" type="file" label="Product Image" />
+
+                                        <FormGroup controlId="formControlsTextarea">
+                                            <ControlLabel>Product Description</ControlLabel>
+                                            <FormControl componentClass="textarea" placeholder={this.state.preEditDescription} inputRef={(ref) => { this.description = ref }} />
+                                        </FormGroup>
+                                    </form>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button onClick={() => this.setState({ showModal: false })}>Cancel</Button>
+                                    <Button type="button" bsStyle="success" onClick={() => this.updateProduct(this.product_name.value, this.description.value, this.price.value, this.quantity.value)}>Update Product</Button>
+                                </Modal.Footer>
+                            </Modal.Dialog>
+                        </div>
+                        : null}
+                </Col>
+                <Col md={1} />
+            </div>
+        )
     }
 }
 

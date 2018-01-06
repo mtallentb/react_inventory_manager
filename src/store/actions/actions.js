@@ -90,6 +90,13 @@ export const updateQuantity = (product_name, productID, quantity) => {
     }
 }
 
+export const filterCategory = (category_id) => {
+    return {
+        type: actions.FILTER_CATEGORY,
+        category_id: category_id
+    }
+}
+
 export const auth = (email, password) => {
     return dispatch => {
         dispatch(authStart())
