@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import Navbar from './components/Navbar/Navbar';
-import Container from './container/Container';
-import './App.css';
+import React, { Component } from 'react'
+import Navbar from './components/Navbar/Navbar'
+import Container from './container/Container'
+import './App.css'
 
 class App extends Component {
   render() {
@@ -10,8 +10,8 @@ class App extends Component {
         <Navbar />
         <Container />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

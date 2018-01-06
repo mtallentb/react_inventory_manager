@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
     FormGroup,
     ControlLabel,
@@ -6,7 +6,7 @@ import {
     HelpBlock,
     Button,
     Col
-} from "react-bootstrap/lib/";
+} from "react-bootstrap/lib/"
 
 const login = (props) => {
 
@@ -17,7 +17,7 @@ const login = (props) => {
                 <FormControl {...props} onChange={props.change} />
                 {help && <HelpBlock>{help}</HelpBlock>}
             </FormGroup>
-        );
+        )
     }
     return <div className="container" style={{ textAlign: "left" }}>
         <Col md={2} />
@@ -26,7 +26,7 @@ const login = (props) => {
                 <FieldGroup id="formControlsEmail" type="text" label="Email" inputRef={(ref) => { this.email = ref }} />
                 <FieldGroup id="formControlsPassword" type="password" label="Password" inputRef={(ref) => { this.password = ref }} />
                 <Button type="button" bsStyle="success" onClick={() => {
-                    props.login(this.email.value, this.password.value);
+                    props.login(this.email.value, this.password.value)
                 }}>
                     Login
                 </Button>
@@ -35,7 +35,7 @@ const login = (props) => {
             <br />
         </Col>
         <Col md={2} />
-    </div>;
+    </div>
 };
 
-export default login;
+export default login

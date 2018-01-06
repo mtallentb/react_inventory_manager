@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Navbar, Nav, NavItem, Modal, Button, Table } from 'react-bootstrap/lib/';
-import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actions';
-import axios from 'axios';
+import React, { Component } from 'react'
+import { Navbar, Nav, NavItem, Modal, Button, Table } from 'react-bootstrap/lib/'
+import { connect } from 'react-redux'
+import * as actionTypes from '../../store/actions'
+import axios from 'axios'
 
 
 class Navigation extends Component {
@@ -13,28 +13,28 @@ class Navigation extends Component {
 
     showCart = () => {
        this.setState({ showCart: true });
-    };
+    }
 
     hideCart = () => {
         this.setState({ showCart: false });
-    };
+    }
 
     updateLocalQuantity = (productID, quantity) => {
-        console.log("Given product ID: " + productID);
-        let products = [...this.state.products];
+        console.log("Given product ID: " + productID)
+        let products = [...this.state.products]
         products.forEach((item, index) => {
             if (item.id === productID) {
                 console.log("Matching Item " + item.product_name);
                 item.quantity = quantity
             }
-        });
-        this.setState({ products: products });
-    };
+        })
+        this.setState({ products: products })
+    }
 
     checkout = () => {
-        let cart_product_ids = this.props.cart.map((product) => product.id);
-        console.log(cart_product_ids);
-        console.log(this.props.cart);
+        let cart_product_ids = this.props.cart.map((product) => product.id)
+        console.log(cart_product_ids)
+        console.log(this.props.cart)
         axios({
             method: 'post',
             url: 'https://ancient-reef-75174.herokuapp.com/orders',
@@ -42,11 +42,11 @@ class Navigation extends Component {
             headers: { 'Authorization': this.props.token }
         })
         .then((response) => {
-            console.log(response);
-            let orderID = response.data.id;
-            console.log("Order ID:" + orderID);
+            console.log(response)
+            let orderID = response.data.id
+            console.log("Order ID:" + orderID)
             this.props.cart.forEach((item, index) => {
-                let cart_quantity = cart_product_ids.filter((productID) => productID === item.id).length;
+                let cart_quantity = cart_product_ids.filter((productID) => productID === item.id).length
                 axios({
                     method: 'post',
                     url: 'https://ancient-reef-75174.herokuapp.com/order_line_items',
@@ -74,16 +74,17 @@ class Navigation extends Component {
                     })
                     .then((response) => {
                         let newProductsArr = response.data
-                        this.props.updateProduct(newProductsArr);
-                    });
-                });
-            });
+                        console.log("Updated Quantities: " + newProductsArr)
+                        this.props.updateProduct(newProductsArr)
+                    })
+                })
+            })
         })
         .then(() => {
             this.props.clearCart()
-            this.setState({ showCart: false });
-        });
-    };
+            this.setState({ showCart: false })
+        })
+    }
 
     render() {
         const reducer = (accumulator, currentValue) => accumulator + currentValue;
@@ -140,8 +141,8 @@ class Navigation extends Component {
                                         <td>{item.product_name}</td>
                                         <td>${item.price}</td>
                                         <td style={{textAlign: 'center'}}><Button bsSize="small" bsStyle="danger" onClick={() => {
-                                            console.log("Delete " + item);
-                                            this.props.removeFromCart(index);
+                                            console.log("Delete " + item)
+                                            this.props.removeFromCart(index)
                                         }}>Remove</Button></td>
                                     </tr>
                                 })}
@@ -162,9 +163,8 @@ class Navigation extends Component {
             </div>
         : null}
         </div>
-        ;
     }
-};
+}
 
 const mapStateToProps = state => {
     return {
@@ -185,6 +185,6 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation)
 
 

@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Button, ButtonToolbar } from 'react-bootstrap/lib/';
-// import * as actionTypes from '../store/actions';
-import LoginContainer from './LoginContainer/LoginContainer';
-import CreateAccountContainer from './CreateAccountContainer/CreateAccountContainer';
-import SellProductButtons from './SellProductsContainer/SellProductsContainer';
-import AddToStockButtons from './AddToStockContainer/AddToStockContainer';
-import Inventory from './Inventory/Inventory';
-import Orders from './OrdersContainer/OrdersContainer';
-import CreateProduct from './CreateProduct/CreateProduct';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Button, ButtonToolbar } from 'react-bootstrap/lib/'
+// import * as actionTypes from '../store/actions'
+import LoginContainer from './LoginContainer/LoginContainer'
+import CreateAccountContainer from './CreateAccountContainer/CreateAccountContainer'
+import SellProductButtons from './SellProductsContainer/SellProductsContainer'
+import AddToStockButtons from './AddToStockContainer/AddToStockContainer'
+import Inventory from './Inventory/Inventory'
+import Orders from './OrdersContainer/OrdersContainer'
+import CreateProduct from './CreateProduct/CreateProduct'
 
 class Container extends Component {
 
@@ -27,7 +27,7 @@ class Container extends Component {
             showInventory: false,
             showCreateProduct: false,
             showOrders: false
-        });
+        })
     }
 
     showAddToStock = () => {
@@ -37,7 +37,7 @@ class Container extends Component {
             showInventory: false,
             showCreateProduct: false,
             showOrders: false
-        });
+        })
     }
 
     showInventory = () => {
@@ -47,7 +47,7 @@ class Container extends Component {
             showInventory: true,
             showCreateProduct: false,
             showOrders: false
-        });
+        })
     }
 
     showCreateProduct = () => {
@@ -57,7 +57,7 @@ class Container extends Component {
             showInventory: false,
             showCreateProduct: true,
             showOrders: false
-        });
+        })
     }
 
     showOrders = () => {
@@ -67,7 +67,7 @@ class Container extends Component {
             showInventory: false,
             showCreateProduct: false,
             showOrders: true
-        });
+        })
     }
 
     render() {
@@ -101,7 +101,7 @@ class Container extends Component {
                     {this.state.showOrders ? <Orders /> : null}
                 </div>
                     : null}
-            </div>);
+            </div>)
     }
 
 }
@@ -114,4 +114,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Container);
+export default connect(mapStateToProps)(Container)

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
     FormGroup,
     ControlLabel,
@@ -6,7 +6,7 @@ import {
     HelpBlock,
     Button,
     Col
-} from "react-bootstrap/lib/";
+} from "react-bootstrap/lib/"
 
 const createAccount = (props) => {
 
@@ -17,7 +17,7 @@ const createAccount = (props) => {
                 <FormControl {...props} onChange={props.change} />
                 {help && <HelpBlock>{help}</HelpBlock>}
             </FormGroup>
-        );
+        )
     }
 
     return <div className="container" style={{ textAlign: "left" }}>
@@ -31,7 +31,7 @@ const createAccount = (props) => {
                 <FieldGroup id="formControlsPassword" type="password" label="Confirm Password" inputRef={(ref) => { this.confirm_password = ref }} />
 
                 <Button type="button" bsStyle="success" onClick={() => {
-                    props.create(this.first_name.value, this.last_name.value, this.email.value, this.password.value, this.confirm_password.value);
+                    props.create(this.first_name.value, this.last_name.value, this.email.value, this.password.value, this.confirm_password.value)
                 }}>
                     Create Account
                     </Button>
@@ -40,7 +40,7 @@ const createAccount = (props) => {
             <br />
         </Col>
         <Col md={2} />
-    </div>;
+    </div>
 }
 
-export default createAccount;
+export default createAccount
