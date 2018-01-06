@@ -2,7 +2,7 @@
 
 ### Instructions
 
-1. Fork the repo.
+1. Clone this repo. `git clone https://github.com/mtallentb/FINAL_INVENTORY.git`
 
 2. `npm install`
 
