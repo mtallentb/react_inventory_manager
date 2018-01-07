@@ -96,6 +96,11 @@ class Navigation extends Component {
                     </Navbar.Header>
                     <Navbar.Collapse>
                         <Nav pullRight>
+                            {this.props.isAuthed ? 
+                                <NavItem eventKey={1} onClick={this.props.showChart}>
+                                    Sales Chart
+                                </NavItem>
+                            : null}
                             {this.props.isAuthed ?
                                 <NavItem eventKey={1} onClick={this.showCart}>
                                     Cart ({this.props.cart.length})
@@ -180,7 +185,8 @@ const mapDispatchToProps = dispatch => {
         createAccount: () => dispatch(actionTypes.showCreateAccount()),
         removeFromCart: (index) => dispatch(actionTypes.removeFromCart(index)),
         clearCart: () => dispatch(actionTypes.clearCart()),
-        updateProduct: (products) => dispatch(actionTypes.editProduct(products))
+        updateProduct: (products) => dispatch(actionTypes.editProduct(products)),
+        showChart: () => dispatch(actionTypes.showChart())
     }
 }
 

@@ -92,7 +92,7 @@ class Orders extends Component {
             showModal: true
         })
     }
-
+ 
     render() {
 
         const orders = this.state.fullOrders.map((order, index) => {
@@ -136,7 +136,7 @@ class Orders extends Component {
                 </Table>
                     {this.state.showModal ?
                         <div className="static-modal">
-                            <Modal.Dialog>
+                            <Modal.Dialog style={{ overflowY: 'initial' }}>
                                 <Modal.Header>
                                     <Modal.Title>Order Details for Order ID: {this.state.currentOrderID}</Modal.Title>
                                 </Modal.Header>

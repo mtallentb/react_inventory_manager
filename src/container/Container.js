@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, ButtonToolbar } from 'react-bootstrap/lib/'
-// import * as actionTypes from '../store/actions'
+import * as actionTypes from '../store/actions'
 import LoginContainer from './LoginContainer/LoginContainer'
 import CreateAccountContainer from './CreateAccountContainer/CreateAccountContainer'
 import SellProductButtons from './SellProductsContainer/SellProductsContainer'
@@ -9,6 +9,7 @@ import AddToStockButtons from './AddToStockContainer/AddToStockContainer'
 import Inventory from './Inventory/Inventory'
 import Orders from './OrdersContainer/OrdersContainer'
 import CreateProduct from './CreateProduct/CreateProduct'
+import Chart from './ChartContainer/ChartContainer'
 
 class Container extends Component {
 
@@ -21,6 +22,7 @@ class Container extends Component {
     }
 
     showSellProducts = () => {
+        this.props.hideChart()
         this.setState({
             showSellProducts: true,
             showAddToStock: false,
@@ -31,6 +33,7 @@ class Container extends Component {
     }
 
     showAddToStock = () => {
+        this.props.hideChart()
         this.setState({
             showSellProducts: false,
             showAddToStock: true,
@@ -41,6 +44,7 @@ class Container extends Component {
     }
 
     showInventory = () => {
+        this.props.hideChart()
         this.setState({
             showSellProducts: false,
             showAddToStock: false,
@@ -51,6 +55,7 @@ class Container extends Component {
     }
 
     showCreateProduct = () => {
+        this.props.hideChart()
         this.setState({
             showSellProducts: false,
             showAddToStock: false,
@@ -61,6 +66,7 @@ class Container extends Component {
     }
 
     showOrders = () => {
+        this.props.hideChart()
         this.setState({
             showSellProducts: false,
             showAddToStock: false,
@@ -94,11 +100,16 @@ class Container extends Component {
                             Order History
                         </Button>
                     </ButtonToolbar>
-                    {this.state.showSellProducts ? <SellProductButtons /> : null}
-                    {this.state.showAddToStock ? <AddToStockButtons /> : null}
-                    {this.state.showInventory ? <Inventory /> : null}
-                    {this.state.showCreateProduct ? <CreateProduct /> : null}
-                    {this.state.showOrders ? <Orders /> : null}
+                    {this.props.showContainers ? 
+                    <div>
+                        {this.state.showSellProducts ? <SellProductButtons /> : null}
+                        {this.state.showAddToStock ? <AddToStockButtons /> : null}
+                        {this.state.showInventory ? <Inventory /> : null}
+                        {this.state.showCreateProduct ? <CreateProduct /> : null}
+                        {this.state.showOrders ? <Orders /> : null}
+                    </div>
+                    : null}
+                    {this.props.showChart ? <Chart /> : null}
                 </div>
                 : null}
             </div>
@@ -111,8 +122,16 @@ const mapStateToProps = state => {
     return {
         isAuthed: state.auth.isAuthed,
         showLogin: state.main.showLogin,
-        showCreateAccount: state.main.showCreateAccount
+        showCreateAccount: state.main.showCreateAccount,
+        showChart: state.auth.showChart,
+        showContainers: state.auth.showContainers
     }
 }
 
-export default connect(mapStateToProps)(Container)
+const mapDispatchToProps = dispatch => {
+    return {
+        hideChart: () => dispatch(actionTypes.hideChart())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Container)

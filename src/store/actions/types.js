@@ -3,6 +3,8 @@ export const HIDE_LOGIN = 'HIDE_LOGIN'
 export const SHOW_CREATE_ACCOUNT = 'SHOW_CREATE_ACCOUNT'
 export const HIDE_CREATE_ACCOUNT = 'HIDE_CREATE_ACCOUNT'
 export const CREATE_ACCOUNT = 'CREATE_ACCOUNT'
+export const SHOW_CHART = 'SHOW_CHART'
+export const HIDE_CHART = 'HIDE_CHART'
 
 export const AUTH_START = 'AUTH_START'
 export const AUTH_SUCCESS = 'AUTH_SUCCESS'

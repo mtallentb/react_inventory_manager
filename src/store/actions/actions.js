@@ -31,6 +31,9 @@ export const loadProducts = (products) => {
     }
 }
 
+export const showChart = () => ({ type: actions.SHOW_CHART })
+export const hideChart = () => ({ type: actions.HIDE_CHART })
+
 export const addToCart = (product) => {
     return {
         type: actions.ADD_TO_CART,

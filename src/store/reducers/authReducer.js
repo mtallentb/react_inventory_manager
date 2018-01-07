@@ -6,6 +6,8 @@ import axios from 'axios'
 const initialState = {
     isAuthed: false,
     token: null,
+    showChart: false,
+    showContainers: true,
     userID: null,
     error: null,
     loading: false,
@@ -37,6 +39,20 @@ const authLogout = (state, action) => {
     return updateObject(state, { 
         isAuthed: false,
         token: null 
+    })
+}
+
+const showChart = (state, action) => {
+    return updateObject(state, { 
+        showChart: true,
+        showContainers: false 
+    })
+}
+
+const hideChart = (state, action) => {
+    return updateObject(state, { 
+        showChart: false,
+        showContainers: true
     })
 }
 
@@ -119,6 +135,8 @@ const reducer = (state = initialState, action) => {
         case actionTypes.REMOVE_FROM_CART: return removeFromCart(state, action)
         case actionTypes.CLEAR_CART: return clearCart(state, action)
         case actionTypes.UPDATE_QUANTITY: return updateQuantity(state, action)
+        case actionTypes.SHOW_CHART: return showChart(state, action)
+        case actionTypes.HIDE_CHART: return hideChart(state, action)
         default: return state
     }
 }
