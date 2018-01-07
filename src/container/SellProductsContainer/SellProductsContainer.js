@@ -101,16 +101,6 @@ class ProductButtons extends Component {
             product_name: product_name,
             price: price
         })
-        let newProductsArr = this.state.products.map(product => {
-            if (product.id === product_id) {
-                console.log(product.id)
-                product.quantity = product.quantity - 1
-                return product
-            }
-            return product
-        })
-        console.log(newProductsArr)
-        this.setState({ products: newProductsArr })
     }
 
     render() {
@@ -160,31 +150,31 @@ class ProductButtons extends Component {
                 : null}
                 {this.state.showWomensCategory ?
                     <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                        <Button onClick={() => this.props.filterCategory(8)}>Women's T-Shirts</Button>
-                        <Button onClick={() => this.props.filterCategory(9)}>Women's Tank Tops</Button>
-                        <Button onClick={() => this.props.filterCategory(10)}>Women's Hoodies</Button>
-                        <Button onClick={() => this.props.filterCategory(11)}>Women's Jackets</Button>
-                        <Button onClick={() => this.props.filterCategory(12)}>Women's Shorts</Button>
-                        <Button onClick={() => this.props.filterCategory(13)}>Women's Hats</Button>
-                        <Button onClick={() => this.props.filterCategory(14)}>Women's Socks</Button>
+                        <Button onClick={() => this.filterCategory(8)}>Women's T-Shirts</Button>
+                        <Button onClick={() => this.filterCategory(9)}>Women's Tank Tops</Button>
+                        <Button onClick={() => this.filterCategory(10)}>Women's Hoodies</Button>
+                        <Button onClick={() => this.filterCategory(11)}>Women's Jackets</Button>
+                        <Button onClick={() => this.filterCategory(12)}>Women's Shorts</Button>
+                        <Button onClick={() => this.filterCategory(13)}>Women's Hats</Button>
+                        <Button onClick={() => this.filterCategory(14)}>Women's Socks</Button>
                     </ButtonToolbar>
                 : null}
                 {this.state.showKidsCategory ?
                     <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                        <Button onClick={() => this.props.filterCategory(15)}>Kids' T-Shirts</Button>
-                        <Button onClick={() => this.props.filterCategory(16)}>Kids' Hoodies</Button>
-                        <Button onClick={() => this.props.filterCategory(17)}>Kids' Pants</Button>
-                        <Button onClick={() => this.props.filterCategory(18)}>Kids' Shorts</Button>
+                        <Button onClick={() => this.filterCategory(15)}>Kids' T-Shirts</Button>
+                        <Button onClick={() => this.filterCategory(16)}>Kids' Hoodies</Button>
+                        <Button onClick={() => this.filterCategory(17)}>Kids' Pants</Button>
+                        <Button onClick={() => this.filterCategory(18)}>Kids' Shorts</Button>
                     </ButtonToolbar>
                 : null}
                 {this.state.showMiscCategory ?
                     <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                        <Button onClick={() => this.props.filterCategory(19)}>Ties</Button>
-                        <Button onClick={() => this.props.filterCategory(20)}>Cups</Button>
-                        <Button onClick={() => this.props.filterCategory(21)}>Mugs</Button>
-                        <Button onClick={() => this.props.filterCategory(22)}>Towels</Button>
-                        <Button onClick={() => this.props.filterCategory(23)}>Flags</Button>
-                        <Button onClick={() => this.props.filterCategory(24)}>Keychains</Button>
+                        <Button onClick={() => this.filterCategory(19)}>Ties</Button>
+                        <Button onClick={() => this.filterCategory(20)}>Cups</Button>
+                        <Button onClick={() => this.filterCategory(21)}>Mugs</Button>
+                        <Button onClick={() => this.filterCategory(22)}>Towels</Button>
+                        <Button onClick={() => this.filterCategory(23)}>Flags</Button>
+                        <Button onClick={() => this.filterCategory(24)}>Keychains</Button>
                     </ButtonToolbar>
                 : null}
                 <br />

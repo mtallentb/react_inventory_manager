@@ -105,22 +105,6 @@ const updateQuantity = (state, action) => {
     return state
 }
 
-const filterCategory = (state, action) => {
-    axios({
-        method: 'get',
-        url: 'https://ancient-reef-75174.herokuapp.com/products/',
-        headers: { 'Authorization': state.token }
-    })
-    .then((response) => {
-        console.log(action.category_id)
-        let productsArr = response.data.filter((product) => product.category_id === action.category_id)
-        console.log(productsArr)
-        return updateObject(state, { products: [] })
-    })
-    console.log(state)
-    return state
-} 
-
 const reducer = (state = initialState, action) => {
     switch ( action.type ) {
         case actionTypes.AUTH_START: return authStart(state, action)
@@ -135,7 +119,6 @@ const reducer = (state = initialState, action) => {
         case actionTypes.REMOVE_FROM_CART: return removeFromCart(state, action)
         case actionTypes.CLEAR_CART: return clearCart(state, action)
         case actionTypes.UPDATE_QUANTITY: return updateQuantity(state, action)
-        case actionTypes.FILTER_CATEGORY: return filterCategory(state, action)
         default: return state
     }
 }

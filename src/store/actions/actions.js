@@ -55,10 +55,9 @@ export const editProduct = (products) => {
     }
 }
 
-export const deleteProduct = (productID, index) => {
+export const deleteProduct = (productID) => {
     return {
         type: actions.DELETE_PRODUCT,
-        index: index,
         productID: productID
     }
 }
@@ -87,13 +86,6 @@ export const updateQuantity = (product_name, productID, quantity) => {
         product_name: product_name,
         productID: productID,
         quantity: quantity
-    }
-}
-
-export const filterCategory = (category_id) => {
-    return {
-        type: actions.FILTER_CATEGORY,
-        category_id: category_id
     }
 }
 
