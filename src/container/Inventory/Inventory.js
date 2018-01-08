@@ -196,8 +196,7 @@ class Inventory extends Component {
         return (
             <div className="container"style={{ margin: 10 }}>
                 <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                    <Button onClick={this.refreshProducts}><Refresh /></Button>
-                    <Button onClick={this.refreshProducts}>Show All</Button>
+                    <Button onClick={this.refreshProducts}><Refresh /> Show All</Button>
                     <Button onClick={this.showMensCategory}>Men</Button>
                     <Button onClick={this.showWomensCategory}>Women</Button>
                     <Button onClick={this.showKidsCategory}>Kids</Button>

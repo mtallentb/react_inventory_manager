@@ -73,8 +73,10 @@ class Orders extends Component {
 
     orderDetail = (order_id, total, creation_date) => {
         let currentOrder = []
+        // eslint-disable-next-line
         this.state.line_items.map(order => {
             if (order.length !== 0) {
+                // eslint-disable-next-line
                 order.map(item => {
                     if (item.order_id === order_id) {
                         currentOrder.push(item)
@@ -116,7 +118,7 @@ class Orders extends Component {
 
         return ( 
             <div className='container'>
-                <h2>Order History</h2>
+                <br /><br /><br />
                 <Col md={1} />
                 <Col md={10}> 
                 <Table striped bordered condensed hover>
