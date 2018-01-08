@@ -12,7 +12,7 @@
 
 ## Introduction
 
-This app is an inventory management system. It uses token base authentication and a Ruby on Rails [API]https://github.com/mtallentb/INVENTORY_RAILS_API). 
+This app is an inventory management system. It uses token base authentication and a Ruby on Rails [API](https://github.com/mtallentb/INVENTORY_RAILS_API). 
 
 [Demo](http://inventory.mttbrwn.com)
 
