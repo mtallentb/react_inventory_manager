@@ -12,6 +12,7 @@ import {
  } from 'react-bootstrap/lib/'
 import * as actionTypes from '../../store/actions'
 import axios from 'axios'
+import Refresh from 'react-icons/lib/md/autorenew'
 
 class AddToStockButtons extends Component {
 
@@ -74,9 +75,7 @@ class AddToStockButtons extends Component {
     }
     
     filterCategory = (category_id) => {
-        console.log(category_id)
         let products = this.props.products.filter((product) => product.category_id === category_id)
-        console.log(products)
         this.setState({ products: products })
     }
 
@@ -88,14 +87,12 @@ class AddToStockButtons extends Component {
             headers: { 'Authorization': this.props.token }
         })
             .then((response) => {
-                console.log("Post PATCH Response: " + response)
                 axios({
                     method: 'get',
                     url: 'https://ancient-reef-75174.herokuapp.com/products/',
                     headers: { 'Authorization': this.props.token }
                 })
                     .then((response) => {
-                        console.log(response.data)
                         let newProductsArr = response.data
                         this.props.updateProduct(newProductsArr);
                         this.setState({ showModal: false });
@@ -122,8 +119,21 @@ class AddToStockButtons extends Component {
     }
 
     render() {
-        const products = this.state.products.map(product => {
+
+        const sortKeys = (a, b) => { return a.id - b.id }
+
+        const products = this.state.products.sort(sortKeys).map(product => {
             return <ProductButton key={product.id} name={product.product_name} quantity={product.quantity} click={() => this.setState({ showModal: true, updatedProduct: product.product_name, updatedProductID: product.id })} />
+        })
+        // eslint-disable-next-line
+        const productButtons = this.state.products.map((product, index) => {
+            if (index % 4 === 0) {
+                return (
+                    <ButtonToolbar key={product.id} style={{ justifyContent: "center", display: "flex" }}>
+                        {products.slice(index, (index + 4))}
+                    </ButtonToolbar>
+                )
+            }
         })
 
         function FieldGroup({ id, label, help, ...props }) {
@@ -139,7 +149,7 @@ class AddToStockButtons extends Component {
         return (
             <div className='container' style={{ margin: 10 }} >
                 <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                    <Button onClick={this.showAllProducts}>Show All</Button>
+                    <Button onClick={this.showAllProducts}><Refresh /> Show All</Button>
                     <Button onClick={this.showMensCategory}>Men</Button>
                     <Button onClick={this.showWomensCategory}>Women</Button>
                     <Button onClick={this.showKidsCategory}>Kids</Button>
@@ -187,36 +197,7 @@ class AddToStockButtons extends Component {
                     </ButtonToolbar>
                 : null}
                 <br />
-                <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                    {products.slice(0, 4)}
-                </ButtonToolbar>
-                <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                    {products.slice(4, 8)}
-                </ButtonToolbar>
-                <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                    {products.slice(8, 12)}
-                </ButtonToolbar>
-                <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                    {products.slice(12, 16)}
-                </ButtonToolbar>
-                <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                    {products.slice(16, 20)}
-                </ButtonToolbar>
-                <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                    {products.slice(20, 24)}
-                </ButtonToolbar>
-                <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                    {products.slice(24, 28)}
-                </ButtonToolbar>
-                <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                    {products.slice(28, 32)}
-                </ButtonToolbar>
-                <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                    {products.slice(32, 36)}
-                </ButtonToolbar>
-                <ButtonToolbar style={{ justifyContent: "center", display: "flex" }}>
-                    {products.slice(36, 40)}
-                </ButtonToolbar>
+                {productButtons}
                 {this.state.showModal ?
                     <div className="static-modal">
                         <Modal.Dialog style={{ overflowY: 'initial' }}>
@@ -237,7 +218,7 @@ class AddToStockButtons extends Component {
                             </Modal.Footer>
                         </Modal.Dialog>
                     </div>
-                    : null}
+                : null}
             </div>
         )
     }

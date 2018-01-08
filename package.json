@@ -4,9 +4,12 @@
   "private": true,
   "dependencies": {
     "axios": "^0.17.1",
+    "chart.js": "^2.7.1",
     "react": "^16.2.0",
     "react-bootstrap": "^0.31.5",
+    "react-chartjs-2": "^2.6.4",
     "react-dom": "^16.2.0",
+    "react-icons": "^2.2.7",
     "react-redux": "^5.0.6",
     "react-scripts": "1.0.17",
     "redux": "^3.7.2",

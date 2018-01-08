@@ -8,7 +8,9 @@ import axios from 'axios'
 class CreateAccountContainer extends Component {
     
     render() {
-        return <CreateAccount create={(first_name, last_name, email, password, password_confirm) => this.props.onCreateAccount(first_name, last_name, email, password, password_confirm)} />
+        return (
+            <CreateAccount create={(first_name, last_name, email, password, password_confirm) => this.props.onCreateAccount(first_name, last_name, email, password, password_confirm)} />
+        )
     }
 
 }
@@ -16,7 +18,6 @@ class CreateAccountContainer extends Component {
 const mapDispatchToProps = dispatch => {
     return {
         onCreateAccount: (first_name, last_name, email, password, password_confirm) => {
-            // dispatch({type: actionTypes.CREATE_ACCOUNT, first_name: first_name, last_name: last_name, email: email, password: password, password_confirm: password_confirm})
             axios
                 .post("https://ancient-reef-75174.herokuapp.com/users", {
                     first_name: first_name,
