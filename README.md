@@ -2,21 +2,13 @@
 ---
 
 <p align="center">
-  <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-inventory.png" style="-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
-    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3); "/>
-    <br />
-  <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-sell.jpg" style="-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
-    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);" />
-    <br />
-  <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-cart.png" style="-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
-    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);" />
-    <br />
-  <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-sales-chart.jpg" style="-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
-    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);" />
+  <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-inventory.png" />
+    <br>
+  <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-sell.jpg" />
+    <br>
+  <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-cart.png"/>
+    <br>
+  <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-sales-chart.jpg"/>
 </p>
 
 ## Installation Instructions
