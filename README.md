@@ -2,11 +2,14 @@
 
 <p align="center">
   <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-inventory.png" />
-    &nbsp;
+</p>
+<p align="center">
   <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-sell.jpg" />
-    &nbsp;
+</p>
+<p align="center">
   <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-cart.png"/>
-    &nbsp;
+</p>
+<p align="center">
   <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-sales-chart.jpg"/>
 </p>
 
