@@ -1,18 +1,16 @@
 # React Inventory Manager
----
 
 <p align="center">
   <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-inventory.png" />
-    <br>
+    &nbsp;
   <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-sell.jpg" />
-    <br>
+    &nbsp;
   <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-cart.png"/>
-    <br>
+    &nbsp;
   <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-sales-chart.jpg"/>
 </p>
 
 ## Installation Instructions
----
 
 1. Clone this repo. `git clone https://github.com/mtallentb/FINAL_INVENTORY.git`
 
