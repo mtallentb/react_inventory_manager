@@ -4,9 +4,6 @@
   <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-inventory.png" />
 </p>
 <p align="center">
-  <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-sell.jpg" />
-</p>
-<p align="center">
   <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-cart.png"/>
 </p>
 <p align="center">
