@@ -2,13 +2,24 @@
 ---
 
 <p align="center">
-  <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-inventory.png"/>
-  <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-sell.jpg" />
-  <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-cart.png" />
-  <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-sales-chart.jpg" />
+  <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-inventory.png" style="-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3); "/>
+    <br />
+  <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-sell.jpg" style="-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);" />
+    <br />
+  <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-cart.png" style="-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);" />
+    <br />
+  <img src="http://mttbrwn.com/wp-content/uploads/2018/01/inv-sales-chart.jpg" style="-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);" />
 </p>
 
-### Instructions
+## Installation Instructions
 ---
 
 1. Clone this repo. `git clone https://github.com/mtallentb/FINAL_INVENTORY.git`
@@ -21,27 +32,24 @@
 
 5. If the app doesn't pop up automatically, head to `http://localhost:3000`
 
-### Prerequisites
----
+## Prerequisites
 
 #### Node.js
 
 `brew install node`
 
-### Tech Stack
+## Tech Stack
 
 * React
 * React Boostrap
 * Redux
 * Rails 5 API
 
-### Author
----
+## Author
 
 Matt Brown
 
-### Acknowledgements
----
+## Acknowledgements
 
 * Nashville Software School Faculty
 * Matt Hamil
